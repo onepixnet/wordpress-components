@@ -53,6 +53,7 @@
         <UnusedClass>
             <errorLevel type="suppress">
                 <directory name="tests"/>
+                <directory name="src"/>
             </errorLevel>
         </UnusedClass>
 
@@ -61,5 +62,11 @@
                 <file name="tests/bootstrap.php"/>
             </errorLevel>
         </UnresolvableInclude>
+
+        <PluginIssue name="HookNotFound">
+            <errorLevel type="suppress">
+                <directory name="src"/>
+            </errorLevel>
+        </PluginIssue>
     </issueHandlers>
 </psalm>
