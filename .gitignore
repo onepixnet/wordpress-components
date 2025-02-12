@@ -1,0 +1,11 @@
+/.env
+/docker-compose.override.yml
+
+/data
+/vendor
+/var
+
+#Uncomment in a project
+/composer.lock
+
+
