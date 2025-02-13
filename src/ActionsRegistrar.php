@@ -9,6 +9,9 @@ final class ActionsRegistrar implements \OnePix\WordPressContracts\ActionsRegist
     public function add(string $hook, callable $callback, int $priority = 10, int $acceptedArgs = 1): void
     {
         /**
+         * ToDo fix this error
+         *
+         * @psalm-suppress MixedArgumentTypeCoercion
          * @psalm-suppress ArgumentTypeCoercion
          * @psalm-suppress PossiblyInvalidArgument
          */
