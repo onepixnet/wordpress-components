@@ -23,9 +23,8 @@
     </projectFiles>
 
     <stubs>
-        <file name="vendor/onepix/psr11-container-interface-generic/ContainerInterface.php"/>
         <file name="vendor/onepix/wordpress-stubs/wordpress-stubs.php"/>
-<!--        <file name="vendor/php-stubs/wordpress-tests-stubs/wordpress-tests-stubs.php"/>-->
+        <file name="vendor/php-stubs/wordpress-tests-stubs/wordpress-tests-stubs.php"/>
     </stubs>
 
     <plugins>
