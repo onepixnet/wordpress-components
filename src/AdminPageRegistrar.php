@@ -8,6 +8,12 @@ use OnePix\WordPressContracts\AdminPage;
 
 final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRegistrar
 {
+    public function __construct(
+        private readonly \OnePix\WordPressContracts\ActionsRegistrar $actionsRegistrar
+    )
+    {
+    }
+
     public function addPage(AdminPage $adminPage): void
     {
         $adminPage->getParentSlug() === null ?
@@ -30,7 +36,7 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
                 $adminPage->getPosition()
             );
 
-        add_action( 'admin_print_scripts-' . $adminPage->getPageHookName(), $adminPage->enqueueScripts( ...  ) );
-        add_action( 'admin_print_styles-' . $adminPage->getPageHookName(), $adminPage->enqueueStyles( ...  ) );
+        $this->actionsRegistrar->add('admin_print_scripts-' . $adminPage->getPageHookName(), $adminPage->enqueueScripts(...), acceptedArgs: 0);
+        $this->actionsRegistrar->add('admin_print_styles-' . $adminPage->getPageHookName(), $adminPage->enqueueStyles(...), acceptedArgs: 0);
     }
 }
