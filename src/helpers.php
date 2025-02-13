@@ -6,7 +6,7 @@ namespace OnePix\WordPressContractsImplementation;
 
 use OnePix\WordPressContracts\AdminPage;
 
-function get_plugin_page_hookname(AdminPage $adminPage): string
+function get_admin_page_hook_name(AdminPage $adminPage): string
 {
-    return \get_plugin_page_hookname($adminPage->getMenuSlug(), $adminPage->getParentSlug());
+    return get_plugin_page_hookname($adminPage->getMenuSlug(), $adminPage->getParentSlug() ?? '');
 }
