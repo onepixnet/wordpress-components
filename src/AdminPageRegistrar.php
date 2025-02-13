@@ -29,5 +29,8 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
                 $adminPage->printContent(...),
                 $adminPage->getPosition()
             );
+
+        add_action( 'admin_print_scripts-' . $adminPage->getPageHookName(), $adminPage->enqueueScripts( ...  ) );
+        add_action( 'admin_print_styles-' . $adminPage->getPageHookName(), $adminPage->enqueueStyles( ...  ) );
     }
 }
