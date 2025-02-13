@@ -21,9 +21,6 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^8.1",
-    "symfony/dependency-injection": "^7.2",
-    "symfony/config": "^7.2",
-    "symfony/finder": "^7.2",
     "onepix/wordpress-contracts": "^0.1.2"
   },
   "require-dev": {
@@ -36,8 +33,7 @@
     "vimeo/psalm": "^5",
     "humanmade/psalm-plugin-wordpress": "^3.1",
     "onepix/wordpress-stubs": "^6.7",
-    "php-stubs/wordpress-tests-stubs": "^6.7",
-    "onepix/psr11-container-interface-generic": "^1.0"
+    "php-stubs/wordpress-tests-stubs": "^6.7"
   },
   "config": {
     "allow-plugins": {
