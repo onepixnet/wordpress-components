@@ -6,7 +6,10 @@
   "autoload": {
     "psr-4": {
       "OnePix\\WordPressContractsImplementation\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
