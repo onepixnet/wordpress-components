@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OnePix\WordPressContractsImplementation;
+namespace OnePix\WordPressComponents;
 
 final class RewriteRulesManager implements \OnePix\WordPressContracts\RewriteRulesManager
 {

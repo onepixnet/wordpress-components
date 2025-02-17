@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OnePix\WordPressContractsImplementation;
+namespace OnePix\WordPressComponents;
 
 use OnePix\WordPressContracts\Script;
 

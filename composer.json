@@ -1,11 +1,11 @@
 {
-  "name": "onepix/wordpress-contracts-implementation",
-  "description": "Implementation of WordPress contracts",
+  "name": "onepix/wordpress-components",
+  "description": "Implementation of WordPress contracts, PSR contracts and more useful things",
   "type": "library",
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "OnePix\\WordPressContractsImplementation\\": "src/"
+      "OnePix\\WordPressComponents\\": "src/"
     },
     "files": [
       "src/helpers.php"
@@ -13,7 +13,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "OnePix\\WordPressContractsImplementation\\": "tests/"
+      "OnePix\\WordPressComponents\\": "tests/"
     }
   },
   "authors": [

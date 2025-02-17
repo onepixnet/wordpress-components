@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OnePix\WordPressContractsImplementation;
+namespace OnePix\WordPressComponents;
 
 final class ActionsRegistrar implements \OnePix\WordPressContracts\ActionsRegistrar
 {
