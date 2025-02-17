@@ -58,6 +58,12 @@
             </errorLevel>
         </UnresolvableInclude>
 
+        <MissingThrowsDocblock>
+            <errorLevel type="suppress">
+                <file name="src/Logger.php"/>
+            </errorLevel>
+        </MissingThrowsDocblock>
+
         <PluginIssue name="HookNotFound">
             <errorLevel type="suppress">
                 <directory name="src"/>
