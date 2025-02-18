@@ -36,7 +36,8 @@
     "vimeo/psalm": "^5",
     "humanmade/psalm-plugin-wordpress": "^3.1",
     "onepix/wordpress-stubs": "^6.7",
-    "php-stubs/wordpress-tests-stubs": "^6.7"
+    "php-stubs/wordpress-tests-stubs": "^6.7",
+    "illuminate/container": "^11.42"
   },
   "config": {
     "allow-plugins": {
