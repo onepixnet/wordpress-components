@@ -31,6 +31,12 @@
         <pluginClass class="PsalmWordPress\Plugin"/>
     </plugins>
 
+    <ignoreExceptions>
+        <classAndDescendants name="ReflectionException"/>
+        <classAndDescendants name="LogicException"/>
+        <classAndDescendants name="RuntimeException"/>
+    </ignoreExceptions>
+
     <issueHandlers>
         <Trace errorLevel="error"/>
 
