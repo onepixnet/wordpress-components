@@ -24,6 +24,7 @@ return static function (Container $container): Container {
     $container->bind(OnePix\WordPressContracts\AdminPageRegistrar::class, OnePix\WordPressComponents\AdminPageRegistrar::class);
     $container->bind(OnePix\WordPressContracts\FiltersDispatcher::class, OnePix\WordPressComponents\FiltersDispatcher::class);
     $container->bind(OnePix\WordPressContracts\FiltersRegistrar::class, OnePix\WordPressComponents\FiltersRegistrar::class);
+    $container->bind(OnePix\WordPressContracts\HooksManager::class, OnePix\WordPressComponents\HooksManager::class); //Needs $hooks
     $container->bind(OnePix\WordPressContracts\OptionsManager::class, OnePix\WordPressComponents\OptionsManager::class);
     $container->bind(OnePix\WordPressContracts\PluginLifecycleHandler::class, OnePix\WordPressComponents\PluginLifecycleHandler::class);
     $container->bind(OnePix\WordPressContracts\RewriteRulesManager::class, OnePix\WordPressComponents\RewriteRulesManager::class); //Needs $optionPrefix.
