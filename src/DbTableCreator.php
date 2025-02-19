@@ -19,7 +19,7 @@ final class DbTableCreator implements \OnePix\WordPressContracts\DbTableCreator
 
     public function createTable(DbTable $table): void
     {
-        $sql = sprintf('CREATE TABLE {%s} (
+        $sql = sprintf('CREATE TABLE %s (
             %s
         ) %s', $table->getTableName(), $table->getColumnsDefinition(), $this->charsetCollate);
 
