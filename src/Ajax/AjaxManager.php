@@ -32,11 +32,14 @@ abstract class AjaxManager {
      */
 	protected TypedArray $post;
 
+    /**
+     * @param callable(callable):mixed $runAction function from di container to autowire dependencies
+     */
     public function __construct(
         private readonly string $appPrefix,
-        private readonly ActionsRegistrar $actionsRegistrar
-    )
-    {
+        private readonly ActionsRegistrar $actionsRegistrar,
+        private $runAction,
+    ){
     }
 
     public function register(): void {
@@ -166,7 +169,7 @@ abstract class AjaxManager {
 				));
 			}
 
-			call_user_func([ $this, $action ]);
+            call_user_func($this->runAction, [ $this, $action ]);
 		} catch (\Exception $e) {
 			wp_send_json_error($e->getMessage());
 		}
