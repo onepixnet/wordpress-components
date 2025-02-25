@@ -44,6 +44,7 @@ final class ScriptsRegistrar implements \OnePix\WordPressContracts\ScriptsRegist
         return true;
     }
 
+    //ToDo: allow script registration
     public function enqueueScript(Script $script): bool
     {
         wp_enqueue_script($script->getHandle());

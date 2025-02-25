@@ -19,6 +19,7 @@ final class StylesRegistrar implements \OnePix\WordPressContracts\StylesRegistra
         );
     }
 
+    //ToDo: allow style registration
     public function enqueueStyle(Style $style): bool
     {
         wp_enqueue_style($style->getHandle());
