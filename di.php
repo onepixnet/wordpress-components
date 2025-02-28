@@ -19,9 +19,11 @@ return static function (Container $container): Container {
      * $container->bind(SomeInterface::class, SomeClassImplementingInterface::class);
      */
 
+    $container->bind(OnePix\WordPressComponents\Ajax\AjaxManager::class);//Needs $runAction (optional)
+
     $container->bind(OnePix\WordPressContracts\ActionsDispatcher::class, OnePix\WordPressComponents\ActionsDispatcher::class);
     $container->bind(OnePix\WordPressContracts\ActionsRegistrar::class, OnePix\WordPressComponents\ActionsRegistrar::class);
-    $container->bind(OnePix\WordPressContracts\AdminPageRegistrar::class, OnePix\WordPressComponents\AdminPageRegistrar::class);
+    $container->bind(OnePix\WordPressContracts\AdminPageRegistrar::class, OnePix\WordPressComponents\AdminPageRegistrar::class); //Needs $printContentAutowire (optional)
     $container->bind(OnePix\WordPressContracts\FiltersDispatcher::class, OnePix\WordPressComponents\FiltersDispatcher::class);
     $container->bind(OnePix\WordPressContracts\FiltersRegistrar::class, OnePix\WordPressComponents\FiltersRegistrar::class);
     $container->bind(OnePix\WordPressContracts\HooksManager::class, OnePix\WordPressComponents\HooksManager::class); //Needs $hooks
