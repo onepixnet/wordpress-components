@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace OnePix\WordPressComponents\Ajax;
 
+use Closure;
 use Exception;
 use OnePix\WordPressComponents\TypedArray\TypedArray;
 use OnePix\WordPressContracts\ActionsRegistrar;
@@ -32,14 +33,21 @@ abstract class AjaxManager {
      */
 	protected TypedArray $post;
 
+    private Closure $runAction;
+
     /**
-     * @param callable(callable):mixed $runAction function from di container to autowire dependencies
+     * @param null|Closure(callable):mixed $runAction function from di container to autowire dependencies
      */
     public function __construct(
         private readonly string $appPrefix,
         private readonly ActionsRegistrar $actionsRegistrar,
-        private $runAction,
+        null|Closure $runAction = null,
     ){
+        if (!$runAction instanceof \Closure) {
+            $this->runAction = static function (Closure $callback): void {
+                call_user_func($callback);
+            };
+        }
     }
 
     public function register(): void {
