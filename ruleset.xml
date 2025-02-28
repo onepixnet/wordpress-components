@@ -78,4 +78,8 @@
     <rule ref="PSR12"/>
 
     <rule ref="Squiz.NamingConventions.ValidVariableName"/>
+
+    <rule ref="WordPress.DB">
+        <exclude-pattern>/tests</exclude-pattern>
+    </rule>
 </ruleset>
