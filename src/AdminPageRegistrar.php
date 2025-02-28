@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 namespace OnePix\WordPressComponents;
 
+use Closure;
 use OnePix\WordPressContracts\AdminPage;
 
 final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRegistrar
 {
+    private Closure $printContentAutowire;
+
+    /**
+     * @param null|Closure(callable):void $printContentAutowire function from di container to autowire dependencies in printContent function.
+     */
     public function __construct(
-        private readonly \OnePix\WordPressContracts\ActionsRegistrar $actionsRegistrar
+        private readonly \OnePix\WordPressContracts\ActionsRegistrar $actionsRegistrar,
+        null|Closure $printContentAutowire = null,
     )
     {
+        if (!$printContentAutowire instanceof \Closure) {
+            $this->printContentAutowire = static function (Closure $callback): void {
+                call_user_func($callback);
+            };
+        }
     }
 
     public function addPage(AdminPage $adminPage): void
@@ -22,7 +34,9 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
                 $adminPage->getMenuTitle(),
                 $adminPage->getCapability(),
                 $adminPage->getMenuSlug(),
-                $adminPage->printContent(...),
+                function () use($adminPage): void{
+                    call_user_func($this->printContentAutowire, $adminPage->printContent(...));
+                },
                 $adminPage->getIconUrl() ?? '',
                 $adminPage->getPosition()
             ) :
@@ -32,7 +46,9 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
                 $adminPage->getMenuTitle(),
                 $adminPage->getCapability(),
                 $adminPage->getMenuSlug(),
-                $adminPage->printContent(...),
+                function () use($adminPage): void{
+                    call_user_func($this->printContentAutowire, $adminPage->printContent(...));
+                },
                 $adminPage->getPosition()
             );
 
