@@ -11,14 +11,14 @@ class DbTableCreatorTest extends WP_UnitTestCase
 {
     public static function setUpBeforeClass(): void
     {
-        if ( ! function_exists('dbDelta')) {
+        if (! function_exists('dbDelta')) {
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         }
     }
 
     public function testCreateTableWithRightUsageOfDbTable(): void
     {
-        $dbDeltaMock = fn(string $sql):string => '42';
+        $dbDeltaMock    = fn(string $sql): string => $sql;
         $dbTableMock    = $this->createMock(DbTable::class);
         $dbTableCreator = new DbTableCreator('CHARSET_COLLATE', $dbDeltaMock(...));
 
@@ -53,9 +53,9 @@ class DbTableCreatorTest extends WP_UnitTestCase
         $dbTableCreator->createTable($dbTableMock);
 
         $this->assertTrue(
-            $wpdb->get_var(sprintf("SHOW TABLES LIKE '%s'", $dbTableMock->getTableName())) == $dbTableMock->getTableName()
+            $wpdb->get_var(sprintf("SHOW TABLES LIKE '%s'", $dbTableMock->getTableName())) === $dbTableMock->getTableName()
         );
 
-        $wpdb->get_var(sprintf("DROP TABLE %s", $dbTableMock->getTableName()));
+        $wpdb->get_var(sprintf('DROP TABLE %s', $dbTableMock->getTableName()));
     }
 }
