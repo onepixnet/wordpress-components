@@ -33,21 +33,18 @@ abstract class AjaxManager {
      */
 	protected TypedArray $post;
 
-    private Closure $runAction;
-
     /**
-     * @param null|Closure(callable):mixed $runAction function from di container to autowire dependencies
+     * @param  Closure(callable):mixed  $runAction  function from di container to autowire dependencies
      */
+    private readonly Closure $runAction;
+
     public function __construct(
         private readonly string $appPrefix,
         private readonly ActionsRegistrar $actionsRegistrar,
-        null|Closure $runAction = null,
-    ){
-        if (!$runAction instanceof \Closure) {
-            $this->runAction = static function (Closure $callback): void {
-                call_user_func($callback);
-            };
-        }
+        null|callable $runAction = null,
+    ) {
+        $this->runAction = $runAction === null ?
+            fn(Closure $callback): mixed => call_user_func($callback) : $runAction(...);
     }
 
     public function register(): void {
