@@ -152,7 +152,7 @@ abstract class AjaxManager {
 			 * If request content type is application/json and $_POST is empty decode data and put it to $_POST
 			 */
 			if ($_POST === [] && isset($_SERVER['CONTENT_TYPE']) && 'application/json' === $_SERVER['CONTENT_TYPE']) {
-				$this->post = json_decode(file_get_contents('php://input'), true);
+				$this->post = new TypedArray(json_decode(file_get_contents('php://input'), true));
 			} else {
 				$this->post = new TypedArray($_POST);
 			}
