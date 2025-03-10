@@ -12,17 +12,18 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
     private Closure $printContentAutowire;
 
     /**
-     * @param null|Closure(callable):void $printContentAutowire function from di container to autowire dependencies in printContent function.
+     * @param null|callable(Closure):void $printContentAutowire function from di container to autowire dependencies in printContent function.
      */
     public function __construct(
         private readonly \OnePix\WordPressContracts\ActionsRegistrar $actionsRegistrar,
-        null|Closure $printContentAutowire = null,
-    )
-    {
-        if (!$printContentAutowire instanceof \Closure) {
+        null|callable $printContentAutowire = null,
+    ) {
+        if ($printContentAutowire === null) {
             $this->printContentAutowire = static function (Closure $callback): void {
                 call_user_func($callback);
             };
+        } else {
+            $this->printContentAutowire = $printContentAutowire(...);
         }
     }
 
