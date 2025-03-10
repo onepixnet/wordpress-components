@@ -9,21 +9,21 @@ use OnePix\WordPressContracts\AdminPage;
 
 final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRegistrar
 {
-    private Closure $printContentAutowire;
+    private Closure $autowire;
 
     /**
-     * @param null|callable(Closure):void $printContentAutowire function from di container to autowire dependencies in printContent function.
+     * @param null|callable(Closure):void $autowire function from di container to autowire dependencies in printContent function.
      */
     public function __construct(
         private readonly \OnePix\WordPressContracts\ActionsRegistrar $actionsRegistrar,
-        null|callable $printContentAutowire = null,
+        ?callable $autowire = null,
     ) {
-        if ($printContentAutowire === null) {
-            $this->printContentAutowire = static function (Closure $callback): void {
+        if ($autowire === null) {
+            $this->autowire = static function (Closure $callback): void {
                 call_user_func($callback);
             };
         } else {
-            $this->printContentAutowire = $printContentAutowire(...);
+            $this->autowire = $autowire(...);
         }
     }
 
@@ -36,7 +36,7 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
                 $adminPage->getCapability(),
                 $adminPage->getMenuSlug(),
                 function () use($adminPage): void{
-                    call_user_func($this->printContentAutowire, $adminPage->printContent(...));
+                    call_user_func($this->autowire, $adminPage->printContent(...));
                 },
                 $adminPage->getIconUrl() ?? '',
                 $adminPage->getPosition()
@@ -48,12 +48,25 @@ final class AdminPageRegistrar implements \OnePix\WordPressContracts\AdminPageRe
                 $adminPage->getCapability(),
                 $adminPage->getMenuSlug(),
                 function () use($adminPage): void{
-                    call_user_func($this->printContentAutowire, $adminPage->printContent(...));
+                    call_user_func($this->autowire, $adminPage->printContent(...));
                 },
                 $adminPage->getPosition()
             );
 
-        $this->actionsRegistrar->add('admin_print_scripts-' . $adminPage->getPageHookName(), $adminPage->enqueueScripts(...), acceptedArgs: 0);
-        $this->actionsRegistrar->add('admin_print_styles-' . $adminPage->getPageHookName(), $adminPage->enqueueStyles(...), acceptedArgs: 0);
+        $this->actionsRegistrar->add(
+            'admin_print_scripts-' . $adminPage->getPageHookName(),
+            function () use($adminPage): void{
+                call_user_func($this->autowire, $adminPage->enqueueScripts(...));
+            },
+            acceptedArgs: 0
+        );
+
+        $this->actionsRegistrar->add(
+            'admin_print_styles-' . $adminPage->getPageHookName(),
+            function () use($adminPage): void{
+                call_user_func($this->autowire, $adminPage->enqueueStyles(...));
+            },
+            acceptedArgs: 0
+        );
     }
 }
