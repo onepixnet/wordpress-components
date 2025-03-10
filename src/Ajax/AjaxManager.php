@@ -83,6 +83,9 @@ abstract class AjaxManager {
     {
 		$action = $this->getActionName($shortName);
 
+        //ToDo: admin_url('admin-ajax.php') must be replaced with di
+        //ToDo: add_query_arg must be replaced with di
+        //ToDo: Nonce api must be replaced with di
 		$requestUrl = add_query_arg('action', $action, admin_url('admin-ajax.php'));
 
 		if ($additionalArgs !== []) {
