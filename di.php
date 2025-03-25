@@ -7,9 +7,7 @@ use Illuminate\Contracts\Container\Container;
 /**
  * @see https://laravel.com/docs/11.x/container
  */
-return static function (Container $container): Container {
-    $container = clone $container;
-
+return static function (Container $container): void {
     /**
      * Bind classes with container.
      *
@@ -43,6 +41,4 @@ return static function (Container $container): Container {
 
         return new \OnePix\WordPressComponents\DbTableCreator($wpdb->get_charset_collate(), dbDelta(...));
     });
-
-    return $container;
 };
