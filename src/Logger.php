@@ -57,16 +57,35 @@ class Logger implements LoggerInterface
     public function log(mixed $level, mixed $message, array $context = []): void
     {
         if (empty($context['codeSource'])) {
-            $backtrace              = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-            $context['codeSource']  = isset($backtrace['class']) ? $backtrace['class'] . '::' : '';
-            $context['codeSource'] .= $backtrace['function'] ?? '';
+            $context['codeSource'] = $this->resolveCodeSource();
         }
 
         $data = [
-            'source' => "{$this->appPrefix}: {$context['codeSource']}",
+            'source' => "{$this->appPrefix}: " . print_r($context, true),//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
             'data'   => $message,
         ];
 
         error_log(print_r($data, true));//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+    }
+
+    private function resolveCodeSource(): string
+    {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+
+        foreach ($backtrace as $frame) {
+            if (
+                isset($frame['class'])
+                && $frame['class'] !== static::class
+                && isset($frame['function'])
+            ) {
+                return $frame['class'] . '::' . $frame['function'];
+            }
+
+            if (! isset($frame['class']) && isset($frame['function'])) {
+                return $frame['function'];
+            }
+        }
+
+        return 'unknown';
     }
 }
